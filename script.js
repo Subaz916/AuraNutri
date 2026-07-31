@@ -202,6 +202,9 @@
         
         this.loginState.stream = stream;
         this.loginDom.loginWebcam.srcObject = stream;
+        // Explicitly call play() to ensure the stream starts on HTTPS / Vercel
+        // Without this, autoplay may silently fail and drawImage captures a black frame
+        try { await this.loginDom.loginWebcam.play(); } catch (_) {}
         this.showLoginStep('password');
         this.loginDom.loginPassword.focus();
       } catch (err) {
@@ -213,20 +216,39 @@
       }
     }
 
-    captureSnapshot() {
+    async captureSnapshot() {
       try {
         const video = this.loginDom.loginWebcam;
         const canvas = this.loginDom.loginCanvas;
         if (!video || !canvas) return null;
 
-        canvas.width = video.videoWidth || 640;
-        canvas.height = video.videoHeight || 480;
+        // Wait until the video has actual frame data (readyState >= 2 = HAVE_CURRENT_DATA)
+        // This prevents black images on Vercel / HTTPS where autoplay may be delayed
+        if (video.readyState < 2) {
+          await new Promise((resolve) => {
+            const onReady = () => {
+              video.removeEventListener('canplay', onReady);
+              video.removeEventListener('playing', onReady);
+              resolve();
+            };
+            video.addEventListener('canplay', onReady, { once: true });
+            video.addEventListener('playing', onReady, { once: true });
+            // Timeout fallback after 3 seconds – proceed anyway
+            setTimeout(resolve, 3000);
+          });
+        }
+
+        // Use real video dimensions; fall back to 640x480 if still unavailable
+        const w = video.videoWidth > 0 ? video.videoWidth : 640;
+        const h = video.videoHeight > 0 ? video.videoHeight : 480;
+        canvas.width = w;
+        canvas.height = h;
         const context = canvas.getContext('2d');
-        
+
         // Mirror the canvas image to match mirrored webcam preview
-        context.translate(canvas.width, 0);
+        context.translate(w, 0);
         context.scale(-1, 1);
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.drawImage(video, 0, 0, w, h);
         context.setTransform(1, 0, 0, 1, 0, 0);
 
         return canvas.toDataURL('image/jpeg', 0.8);
@@ -238,7 +260,7 @@
 
     async handlePasswordVerification() {
       const password = this.loginDom.loginPassword.value;
-      const snapshot = this.captureSnapshot();
+      const snapshot = await this.captureSnapshot();
 
       // Show loader on the button
       this.loginDom.loginErrorMessage.classList.add('hidden');
