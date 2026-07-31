@@ -2839,3 +2839,29 @@ input:focus, select:focus, textarea:focus {
     5px 5px 8px rgba(0,0,0,0.6) !important;
   letter-spacing: 1px;
 }
+
+/* 3D Water Jar Override */
+.water-glass-display {
+  background-color: var(--bg-primary) !important;
+  border: 4px solid var(--text-secondary) !important;
+  border-top: none !important;
+  box-shadow: var(--shadow-lg), inset 6px 0px 12px rgba(0,0,0,0.15), inset -6px 0px 12px rgba(255,255,255,0.05) !important;
+}
+
+.water-level {
+  box-shadow: inset 0px 5px 10px rgba(0,0,0,0.3) !important;
+}
+
+.water-text-overlay {
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  color: #60A5FA !important; /* bright blue */
+  text-shadow: 
+    1px 1px 0 #1e3a8a,
+    2px 2px 0 #1e3a8a,
+    3px 3px 0 #1e3a8a,
+    4px 4px 0 #1e3a8a,
+    5px 5px 8px rgba(0,0,0,0.6) !important;
+  letter-spacing: 1px;
+  z-index: 10;
+}
