@@ -568,12 +568,13 @@ ul {
   height: 100%;
 }
 .macro-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
 }
 .macro-bullet {
   width: 10px;
