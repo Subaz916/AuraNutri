@@ -2939,7 +2939,7 @@ input:focus, select:focus, textarea:focus {
   .kcal-main-card {
     grid-column: span 1;
   }
-  .totals-grid, .stats-key-cards-grid, .quick-foods-grid {
+  .totals-grid, .stats-key-cards-grid {
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
@@ -2978,10 +2978,47 @@ input:focus, select:focus, textarea:focus {
 
 @media (max-width: 480px) {
   /* Extra Small Devices */
-  .totals-grid, .stats-key-cards-grid, .quick-foods-grid {
+  .totals-grid, .stats-key-cards-grid {
     grid-template-columns: 1fr;
   }
   .nav-quick-totals {
     display: none;
+  }
+}
+
+/* Quick Add Grid Scroll & Layout Fixes */
+.quick-foods-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)) !important;
+  gap: 16px !important;
+  width: 100% !important;
+}
+
+.quick-food-card {
+  padding: 16px !important;
+  position: relative !important;
+}
+
+.quick-food-icon-name {
+  padding-right: 70px !important; /* Make room for the absolute actions */
+  max-width: 100% !important;
+}
+
+.quick-food-actions-overlay {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  opacity: 1 !important; /* Always show action buttons on mobile/tablet */
+  background: var(--card-bg) !important;
+  padding: 4px !important;
+  border-radius: 4px !important;
+}
+
+@media (min-width: 769px) {
+  /* Only hide overlay on desktop until hover */
+  .quick-food-actions-overlay {
+    opacity: 0 !important;
+  }
+  .quick-food-card:hover .quick-food-actions-overlay {
+    opacity: 1 !important;
   }
 }
