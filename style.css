@@ -2853,15 +2853,13 @@ input:focus, select:focus, textarea:focus {
 }
 
 .water-text-overlay {
-  font-size: 16px !important;
-  font-weight: 900 !important;
-  color: #60A5FA !important; /* bright blue */
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: #93C5FD !important; /* soft bright blue */
   text-shadow: 
     1px 1px 0 #1e3a8a,
     2px 2px 0 #1e3a8a,
-    3px 3px 0 #1e3a8a,
-    4px 4px 0 #1e3a8a,
-    5px 5px 8px rgba(0,0,0,0.6) !important;
-  letter-spacing: 1px;
+    3px 3px 5px rgba(0,0,0,0.6) !important;
+  letter-spacing: 0.5px;
   z-index: 10;
 }
