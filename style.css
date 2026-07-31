@@ -2817,3 +2817,11 @@ input:focus, select:focus, textarea:focus {
   box-shadow: var(--shadow-inset) !important;
   border: none !important;
 }
+
+/* Empty State Adjustments */
+.empty-state-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 20px;
+}
