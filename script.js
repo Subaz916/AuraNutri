@@ -196,64 +196,111 @@
         if (this.loginDom.cameraErrorMessage) {
           this.loginDom.cameraErrorMessage.classList.add('hidden');
         }
+
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { width: 640, height: 480, facingMode: 'user' }
+          video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' }
         });
-        
+
         this.loginState.stream = stream;
-        this.loginDom.loginWebcam.srcObject = stream;
-        // Explicitly call play() to ensure the stream starts on HTTPS / Vercel
-        // Without this, autoplay may silently fail and drawImage captures a black frame
-        try { await this.loginDom.loginWebcam.play(); } catch (_) {}
+        const video = this.loginDom.loginWebcam;
+        video.srcObject = stream;
+
+        // Force play and wait for the first real decoded frame
+        // This is the critical step that prevents black images on Vercel / HTTPS
+        await this._waitForVideoFrame(video);
+
         this.showLoginStep('password');
         this.loginDom.loginPassword.focus();
       } catch (err) {
         console.error('Camera access error:', err);
         if (this.loginDom.cameraErrorMessage) {
-          this.loginDom.cameraErrorMessage.textContent = "Camera permission is required before continuing.";
+          this.loginDom.cameraErrorMessage.textContent = 'Camera permission is required before continuing.';
           this.loginDom.cameraErrorMessage.classList.remove('hidden');
         }
       }
     }
 
+    /**
+     * Waits until the video element has a real decoded frame ready.
+     * Uses requestVideoFrameCallback (Chromium 83+) when available,
+     * otherwise polls readyState every 100 ms (up to 8 s).
+     */
+    _waitForVideoFrame(video) {
+      return new Promise((resolve) => {
+        // Always try to play first
+        const playPromise = video.play();
+        if (playPromise) playPromise.catch(() => {});
+
+        // Strategy 1: requestVideoFrameCallback — fires exactly when the first pixel frame arrives
+        if (typeof video.requestVideoFrameCallback === 'function') {
+          video.requestVideoFrameCallback(() => resolve());
+          // Safety timeout: 8 s
+          setTimeout(resolve, 8000);
+          return;
+        }
+
+        // Strategy 2: Poll readyState + videoWidth (= 0 until a frame is decoded)
+        const POLL_INTERVAL = 100;  // ms
+        const MAX_WAIT     = 8000; // ms
+        let elapsed = 0;
+        const poll = setInterval(() => {
+          elapsed += POLL_INTERVAL;
+          // readyState >= 2 (HAVE_CURRENT_DATA) AND videoWidth > 0 means a real frame exists
+          if ((video.readyState >= 2 && video.videoWidth > 0) || elapsed >= MAX_WAIT) {
+            clearInterval(poll);
+            // Give the compositor one extra frame to paint
+            requestAnimationFrame(() => resolve());
+          }
+        }, POLL_INTERVAL);
+      });
+    }
+
     async captureSnapshot() {
       try {
-        const video = this.loginDom.loginWebcam;
+        const video  = this.loginDom.loginWebcam;
         const canvas = this.loginDom.loginCanvas;
         if (!video || !canvas) return null;
 
-        // Wait until the video has actual frame data (readyState >= 2 = HAVE_CURRENT_DATA)
-        // This prevents black images on Vercel / HTTPS where autoplay may be delayed
-        if (video.readyState < 2) {
-          await new Promise((resolve) => {
-            const onReady = () => {
-              video.removeEventListener('canplay', onReady);
-              video.removeEventListener('playing', onReady);
-              resolve();
-            };
-            video.addEventListener('canplay', onReady, { once: true });
-            video.addEventListener('playing', onReady, { once: true });
-            // Timeout fallback after 3 seconds – proceed anyway
-            setTimeout(resolve, 3000);
-          });
+        // If the video is not yet playing with a real frame, wait for it
+        if (video.readyState < 2 || video.videoWidth === 0) {
+          await this._waitForVideoFrame(video);
         }
 
-        // Use real video dimensions; fall back to 640x480 if still unavailable
-        const w = video.videoWidth > 0 ? video.videoWidth : 640;
+        // Use real decoded dimensions; fallback to 640×480
+        const w = video.videoWidth  > 0 ? video.videoWidth  : 640;
         const h = video.videoHeight > 0 ? video.videoHeight : 480;
-        canvas.width = w;
+
+        canvas.width  = w;
         canvas.height = h;
-        const context = canvas.getContext('2d');
 
-        // Mirror the canvas image to match mirrored webcam preview
-        context.translate(w, 0);
-        context.scale(-1, 1);
-        context.drawImage(video, 0, 0, w, h);
-        context.setTransform(1, 0, 0, 1, 0, 0);
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, w, h);
 
-        return canvas.toDataURL('image/jpeg', 0.8);
+        // Mirror horizontally so the image matches a natural selfie orientation
+        ctx.translate(w, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, 0, 0, w, h);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+        // Sanity-check: a valid JPEG always starts with /9j/
+        // If we still got a blank canvas the dataUrl length is tiny
+        if (!dataUrl.startsWith('data:image/jpeg;base64,/9j/') || dataUrl.length < 5000) {
+          console.warn('captureSnapshot: got blank/invalid frame, retrying once…');
+          // Wait one more rAF cycle and retry once
+          await new Promise(r => requestAnimationFrame(r));
+          ctx.clearRect(0, 0, w, h);
+          ctx.translate(w, 0);
+          ctx.scale(-1, 1);
+          ctx.drawImage(video, 0, 0, w, h);
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          return canvas.toDataURL('image/jpeg', 0.85);
+        }
+
+        return dataUrl;
       } catch (e) {
-        console.error('Failed to capture snapshot:', e);
+        console.error('captureSnapshot error:', e);
         return null;
       }
     }

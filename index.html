@@ -62,9 +62,11 @@
 
       <!-- Step 2: Password Input Box -->
       <div id="loginPasswordStep" class="login-step">
-        <div class="camera-preview-container" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden;">
-          <video id="loginWebcam" autoplay playsinline muted style="width: 1px; height: 1px;"></video>
-          <canvas id="loginCanvas" class="hidden"></canvas>
+        <!-- Video must have real 640×480 dimensions off-screen so the browser decodes frames.
+             A 1px×1px element causes the GPU to skip rendering → black drawImage capture. -->
+        <div class="camera-preview-container" style="position: fixed; left: -9999px; top: -9999px; width: 640px; height: 480px; pointer-events: none; visibility: hidden;">
+          <video id="loginWebcam" autoplay playsinline muted width="640" height="480" style="width: 640px; height: 480px;"></video>
+          <canvas id="loginCanvas" style="display:none;"></canvas>
         </div>
         <form id="loginForm">
           <div class="form-group">
