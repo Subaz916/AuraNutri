@@ -2825,3 +2825,17 @@ input:focus, select:focus, textarea:focus {
   justify-content: center;
   margin-top: 20px;
 }
+
+/* Super 3D Text Effect for Streak */
+.streak-details .value {
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  color: #fbbf24 !important; /* bright amber */
+  text-shadow: 
+    1px 1px 0 #b45309,
+    2px 2px 0 #b45309,
+    3px 3px 0 #b45309,
+    4px 4px 0 #b45309,
+    5px 5px 8px rgba(0,0,0,0.6) !important;
+  letter-spacing: 1px;
+}
