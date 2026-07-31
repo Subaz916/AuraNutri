@@ -2948,6 +2948,19 @@ input:focus, select:focus, textarea:focus {
   .page-title {
     font-size: 24px;
   }
+  .section-header, .quick-add-header-layout, .quick-add-search-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .section-header > div,
+  .quick-add-search-row > div {
+    width: 100%;
+  }
+  .section-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
   .food-card {
     flex-direction: column;
     align-items: flex-start;
