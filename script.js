@@ -3057,11 +3057,14 @@
 
     updateProgressRing(circleEl, radius, percentage) {
       if (!circleEl) return;
-      const circumference = radius * 2 * Math.PI;
-      circleEl.style.strokeDasharray = `${circumference} ${circumference}`;
-      
-      const offset = circumference - (Math.min(100, Math.max(0, percentage)) / 100) * circumference;
-      circleEl.style.strokeDashoffset = offset;
+      if (circleEl.tagName && circleEl.tagName.toLowerCase() === 'circle') {
+        const circumference = radius * 2 * Math.PI;
+        circleEl.style.strokeDasharray = `${circumference} ${circumference}`;
+        const offset = circumference - (Math.min(100, Math.max(0, percentage)) / 100) * circumference;
+        circleEl.style.strokeDashoffset = offset;
+      } else {
+        circleEl.style.width = `${Math.min(100, Math.max(0, percentage))}%`;
+      }
     }
 
     animateCounter(element, targetVal) {

@@ -610,41 +610,92 @@ ul {
   margin-left: 2px;
 }
 
-.macro-sub-info {
-  font-size: 13px;
-  color: var(--text-secondary);
+/* Brutal Macro Card Layout */
+.brutal-macro-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between !important;
 }
-.macro-remaining-value {
+
+.brutal-macro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 8px;
+}
+
+.brutal-macro-percentage {
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: 18px;
+  background-color: var(--primary);
+  color: #000 !important;
+  border: 2px solid #000;
+  padding: 2px 8px;
+  box-shadow: 2px 2px 0px #000;
+}
+
+/* Color fills for progress percentage badges */
+.protein-card .brutal-macro-percentage { background-color: var(--success); }
+.carbs-card .brutal-macro-percentage { background-color: var(--warning); }
+.fat-card .brutal-macro-percentage { background-color: var(--danger); }
+
+.brutal-macro-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.brutal-macro-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  border-bottom: 1px dashed rgba(0,0,0,0.15);
+  padding-bottom: 4px;
+}
+.theme-dark .brutal-macro-row {
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+
+.brutal-macro-row:last-child {
+  border-bottom: none;
+}
+
+.brutal-macro-lbl {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.brutal-macro-val {
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.macro-visual {
+.brutal-progress-bar {
+  height: 18px;
+  background-color: #fff;
+  border: 2px solid #000;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  box-shadow: 2px 2px 0px #000;
 }
-.progress-percentage-label {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-title);
-  font-weight: 800;
-  font-size: 20px;
-}
-.progress-percentage-label.text-sm {
-  font-size: 15px;
+.theme-dark .brutal-progress-bar {
+  background-color: #1e293b;
+  border-color: #000;
 }
 
-/* Circular SVG Progress Ring */
-.progress-ring__circle {
-  transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
+.brutal-progress-fill {
+  height: 100%;
+  width: 0%;
+  transition: width var(--transition-normal);
 }
+
+.color-kcal-fill { background-color: var(--primary); }
+.color-protein-fill { background-color: var(--success); }
+.color-carbs-fill { background-color: var(--warning); }
+.color-fat-fill { background-color: var(--danger); }
 
 /* Dashboard Secondary Grid */
 .dashboard-secondary-grid {

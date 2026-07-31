@@ -41,7 +41,7 @@
   <div id="loginContainer" class="login-wrapper">
     <div class="login-card">
       <div class="login-header">
-        <span class="login-logo-icon">⚡</span>
+        <span class="login-logo-icon">㎉</span>
         <h1 class="login-title">Personal KCAL Tracker</h1>
         <p class="login-subtitle">AuraNutri Login Page</p>
       </div>
@@ -97,7 +97,7 @@
     <aside class="app-sidebar" id="appSidebar">
       <div class="sidebar-header">
         <div class="logo">
-          <span class="logo-icon">⚡</span>
+          <span class="logo-icon">🏋️⚡</span>
           <span class="logo-text">AuraNutri</span>
         </div>
         <button class="close-sidebar-btn" id="closeSidebarBtn" aria-label="Close menu">
@@ -246,115 +246,102 @@
           <!-- Major Macro Circle Cards -->
           <div class="macro-cards-grid">
             <!-- Calories Main Card -->
-            <div class="macro-card kcal-main-card">
-              <div class="macro-card-content">
-                <div class="macro-info">
-                  <span class="macro-title">Calories</span>
-                  <div class="macro-numbers">
-                    <span class="macro-consumed" id="kcalConsumed">0</span>
-                    <span class="macro-slash">/</span>
-                    <span class="macro-goal" id="kcalGoal">2000</span>
-                    <span class="macro-unit">kcal</span>
-                  </div>
-                  <div class="macro-sub-info">
-                    <span class="macro-remaining-label" id="kcalRemainingLabel">Remaining</span>
-                    <span class="macro-remaining-value" id="kcalRemaining">2000</span>
-                  </div>
+            <div class="macro-card kcal-main-card brutal-macro-card">
+              <div class="brutal-macro-header">
+                <span class="macro-title">Calories</span>
+                <span class="brutal-macro-percentage" id="kcalPercent">0%</span>
+              </div>
+              <div class="brutal-macro-table">
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Target</span>
+                  <span class="brutal-macro-val"><span id="kcalGoal">2000</span> kcal</span>
                 </div>
-                
-                <div class="macro-visual">
-                  <svg class="progress-ring" width="140" height="140">
-                    <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="12" fill="transparent" r="54" cx="70" cy="70" />
-                    <circle class="progress-ring__circle" id="kcalProgressCircle" stroke="#3B82F6" stroke-width="12" stroke-dasharray="339.29" stroke-dashoffset="339.29" fill="transparent" r="54" cx="70" cy="70" />
-                  </svg>
-                  <div class="progress-percentage-label">
-                    <span id="kcalPercent">0%</span>
-                  </div>
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Logged</span>
+                  <span class="brutal-macro-val"><span id="kcalConsumed">0</span> kcal</span>
                 </div>
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl" id="kcalRemainingLabel">Remaining</span>
+                  <span class="brutal-macro-val text-primary" id="kcalRemaining">2000</span>
+                </div>
+              </div>
+              <div class="brutal-progress-bar">
+                <div class="brutal-progress-fill color-kcal-fill" id="kcalProgressCircle" style="width: 0%;"></div>
               </div>
             </div>
 
             <!-- Protein Card -->
-            <div class="macro-card protein-card">
-              <div class="macro-card-content">
-                <div class="macro-info">
-                  <span class="macro-title"><span class="macro-bullet color-protein"></span>Protein</span>
-                  <div class="macro-numbers">
-                    <span class="macro-consumed" id="proteinConsumed">0</span>
-                    <span class="macro-slash">/</span>
-                    <span class="macro-goal" id="proteinGoal">150</span>
-                    <span class="macro-unit">g</span>
-                  </div>
-                  <div class="macro-sub-info">
-                    <span class="macro-remaining-label">Remaining:</span>
-                    <span class="macro-remaining-value" id="proteinRemaining">150g</span>
-                  </div>
+            <div class="macro-card protein-card brutal-macro-card">
+              <div class="brutal-macro-header">
+                <span class="macro-title"><span class="macro-bullet color-protein"></span>Protein</span>
+                <span class="brutal-macro-percentage" id="proteinPercent">0%</span>
+              </div>
+              <div class="brutal-macro-table">
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Target</span>
+                  <span class="brutal-macro-val"><span id="proteinGoal">150</span> g</span>
                 </div>
-                <div class="macro-visual">
-                  <svg class="progress-ring" width="100" height="100">
-                    <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="transparent" r="38" cx="50" cy="50" />
-                    <circle class="progress-ring__circle" id="proteinProgressCircle" stroke="#22C55E" stroke-width="8" stroke-dasharray="238.76" stroke-dashoffset="238.76" fill="transparent" r="38" cx="50" cy="50" />
-                  </svg>
-                  <div class="progress-percentage-label text-sm">
-                    <span id="proteinPercent">0%</span>
-                  </div>
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Logged</span>
+                  <span class="brutal-macro-val"><span id="proteinConsumed">0</span> g</span>
                 </div>
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Remaining</span>
+                  <span class="brutal-macro-val text-success" id="proteinRemaining">150g</span>
+                </div>
+              </div>
+              <div class="brutal-progress-bar">
+                <div class="brutal-progress-fill color-protein-fill" id="proteinProgressCircle" style="width: 0%;"></div>
               </div>
             </div>
 
             <!-- Carbs Card -->
-            <div class="macro-card carbs-card">
-              <div class="macro-card-content">
-                <div class="macro-info">
-                  <span class="macro-title"><span class="macro-bullet color-carbs"></span>Carbohydrates</span>
-                  <div class="macro-numbers">
-                    <span class="macro-consumed" id="carbsConsumed">0</span>
-                    <span class="macro-slash">/</span>
-                    <span class="macro-goal" id="carbsGoal">200</span>
-                    <span class="macro-unit">g</span>
-                  </div>
-                  <div class="macro-sub-info">
-                    <span class="macro-remaining-label">Remaining:</span>
-                    <span class="macro-remaining-value" id="carbsRemaining">200g</span>
-                  </div>
+            <div class="macro-card carbs-card brutal-macro-card">
+              <div class="brutal-macro-header">
+                <span class="macro-title"><span class="macro-bullet color-carbs"></span>Carbohydrates</span>
+                <span class="brutal-macro-percentage" id="carbsPercent">0%</span>
+              </div>
+              <div class="brutal-macro-table">
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Target</span>
+                  <span class="brutal-macro-val"><span id="carbsGoal">200</span> g</span>
                 </div>
-                <div class="macro-visual">
-                  <svg class="progress-ring" width="100" height="100">
-                    <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="transparent" r="38" cx="50" cy="50" />
-                    <circle class="progress-ring__circle" id="carbsProgressCircle" stroke="#F59E0B" stroke-width="8" stroke-dasharray="238.76" stroke-dashoffset="238.76" fill="transparent" r="38" cx="50" cy="50" />
-                  </svg>
-                  <div class="progress-percentage-label text-sm">
-                    <span id="carbsPercent">0%</span>
-                  </div>
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Logged</span>
+                  <span class="brutal-macro-val"><span id="carbsConsumed">0</span> g</span>
                 </div>
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Remaining</span>
+                  <span class="brutal-macro-val text-warning" id="carbsRemaining">200g</span>
+                </div>
+              </div>
+              <div class="brutal-progress-bar">
+                <div class="brutal-progress-fill color-carbs-fill" id="carbsProgressCircle" style="width: 0%;"></div>
               </div>
             </div>
 
             <!-- Fat Card -->
-            <div class="macro-card fat-card">
-              <div class="macro-card-content">
-                <div class="macro-info">
-                  <span class="macro-title"><span class="macro-bullet color-fat"></span>Fat</span>
-                  <div class="macro-numbers">
-                    <span class="macro-consumed" id="fatConsumed">0</span>
-                    <span class="macro-slash">/</span>
-                    <span class="macro-goal" id="fatGoal">65</span>
-                    <span class="macro-unit">g</span>
-                  </div>
-                  <div class="macro-sub-info">
-                    <span class="macro-remaining-label">Remaining:</span>
-                    <span class="macro-remaining-value" id="fatRemaining">65g</span>
-                  </div>
+            <div class="macro-card fat-card brutal-macro-card">
+              <div class="brutal-macro-header">
+                <span class="macro-title"><span class="macro-bullet color-fat"></span>Fat</span>
+                <span class="brutal-macro-percentage" id="fatPercent">0%</span>
+              </div>
+              <div class="brutal-macro-table">
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Target</span>
+                  <span class="brutal-macro-val"><span id="fatGoal">65</span> g</span>
                 </div>
-                <div class="macro-visual">
-                  <svg class="progress-ring" width="100" height="100">
-                    <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="transparent" r="38" cx="50" cy="50" />
-                    <circle class="progress-ring__circle" id="fatProgressCircle" stroke="#EF4444" stroke-width="8" stroke-dasharray="238.76" stroke-dashoffset="238.76" fill="transparent" r="38" cx="50" cy="50" />
-                  </svg>
-                  <div class="progress-percentage-label text-sm">
-                    <span id="fatPercent">0%</span>
-                  </div>
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Logged</span>
+                  <span class="brutal-macro-val"><span id="fatConsumed">0</span> g</span>
                 </div>
+                <div class="brutal-macro-row">
+                  <span class="brutal-macro-lbl">Remaining</span>
+                  <span class="brutal-macro-val text-danger" id="fatRemaining">65g</span>
+                </div>
+              </div>
+              <div class="brutal-progress-bar">
+                <div class="brutal-progress-fill color-fat-fill" id="fatProgressCircle" style="width: 0%;"></div>
               </div>
             </div>
           </div>
