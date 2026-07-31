@@ -48,6 +48,35 @@
         2px 2px 0px #3B82F6,
         3px 3px 0px #3B82F6;
     }
+
+    /* Login status step spinner */
+    .status-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 0;
+    }
+    .status-spinner {
+      width: 44px;
+      height: 44px;
+      background-color: #3B82F6;
+      border: 3px solid #000000;
+      box-shadow: 4px 4px 0px #000000;
+      animation: spin3d 1.2s cubic-bezier(0.19, 1, 0.22, 1) infinite;
+    }
+    #loginStatusMessage {
+      color: #FFFFFF;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: center;
+      text-shadow:
+        1px 1px 0px #3B82F6,
+        2px 2px 0px #3B82F6;
+    }
   </style>
 </head>
 <body class="theme-dark not-logged-in">
