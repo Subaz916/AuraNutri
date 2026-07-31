@@ -31,48 +31,48 @@
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Dark Mode Variables - Neumorphic */
+/* Dark Mode Variables - Neo-Brutalism */
 .theme-dark {
-  --bg-primary: #292d32;
-  --bg-secondary: #292d32;
-  --card-bg: #292d32;
-  --card-bg-hover: #292d32;
-  --card-border: transparent;
-  --text-primary: #ffffff;
-  --text-secondary: #a3aab5;
-  --text-muted: #6b7280;
+  --bg-primary: #a3e635; /* Stark lime green */
+  --bg-secondary: #bef264;
+  --card-bg: #ffffff;
+  --card-bg-hover: #f3f4f6;
+  --card-border: #000000;
+  --text-primary: #000000;
+  --text-secondary: #222222;
+  --text-muted: #555555;
   --glass-blur: none;
-  --sidebar-border: transparent;
-  --input-bg: #292d32;
-  --input-border: transparent;
+  --sidebar-border: #000000;
+  --input-bg: #ffffff;
+  --input-border: #000000;
   --input-focus-border: var(--primary);
-  /* Neumorphic Shadows for Dark Mode */
-  --shadow-sm: inset 2px 2px 5px #1c1e22, inset -2px -2px 5px #363c42;
-  --shadow-md: 5px 5px 10px #1c1e22, -5px -5px 10px #363c42;
-  --shadow-lg: 8px 8px 16px #1c1e22, -8px -8px 16px #363c42;
-  --shadow-inset: inset 4px 4px 8px #1c1e22, inset -4px -4px 8px #363c42;
+  /* Brutalist Shadows */
+  --shadow-sm: 3px 3px 0px #000000;
+  --shadow-md: 5px 5px 0px #000000;
+  --shadow-lg: 8px 8px 0px #000000;
+  --shadow-inset: none;
 }
 
-/* Light Mode Variables - Neumorphic */
+/* Light Mode Variables - Neo-Brutalism */
 .theme-light {
-  --bg-primary: #e0e5ec;
-  --bg-secondary: #e0e5ec;
-  --card-bg: #e0e5ec;
-  --card-bg-hover: #e0e5ec;
-  --card-border: transparent;
-  --text-primary: #2d3748;
-  --text-secondary: #718096;
-  --text-muted: #a0aec0;
+  --bg-primary: #fdf6e3; /* Cream */
+  --bg-secondary: #fef08a; /* Yellow */
+  --card-bg: #ffffff;
+  --card-bg-hover: #f3f4f6;
+  --card-border: #000000;
+  --text-primary: #000000;
+  --text-secondary: #222222;
+  --text-muted: #555555;
   --glass-blur: none;
-  --sidebar-border: transparent;
-  --input-bg: #e0e5ec;
-  --input-border: transparent;
+  --sidebar-border: #000000;
+  --input-bg: #ffffff;
+  --input-border: #000000;
   --input-focus-border: var(--primary);
-  /* Neumorphic Shadows for Light Mode */
-  --shadow-sm: inset 2px 2px 5px #a3b1c6, inset -2px -2px 5px #ffffff;
-  --shadow-md: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
-  --shadow-lg: 9px 9px 16px #a3b1c6, -9px -9px 16px #ffffff;
-  --shadow-inset: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+  /* Brutalist Shadows */
+  --shadow-sm: 3px 3px 0px #000000;
+  --shadow-md: 5px 5px 0px #000000;
+  --shadow-lg: 8px 8px 0px #000000;
+  --shadow-inset: none;
 }
 
 /* Compact Mode Overrides */
@@ -2713,109 +2713,130 @@ body:not(.not-logged-in) #loginContainer {
 }
 
 /* ==========================================================================
-   Full Pro 3D Neumorphism Overrides
+   Full Neo-Brutalism Overrides
    ========================================================================== */
 
-/* Main Containers & Cards (Outset 3D Shadow) */
+/* Main Containers & Cards (Stark background, hard shadow) */
 .app-sidebar, .top-nav, .glass-panel, .macro-card, .calendar-main-card, 
 .food-card, .history-day-card, .quick-food-card, .log-totals-bar,
 .search-results-dropdown, .login-card, .current-date-display {
-  background-color: var(--bg-primary) !important;
-  box-shadow: var(--shadow-lg) !important;
-  border: none !important;
-  backdrop-filter: none !important;
-}
-
-/* Buttons (Outset changing to Inset on click) */
-.btn, .mini-quick-add-btn, .category-pill-btn, .profile-trigger, .date-arrow-btn {
-  background-color: var(--bg-primary) !important;
+  background-color: var(--card-bg) !important;
   box-shadow: var(--shadow-md) !important;
-  border: none !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important; /* Sharp corners */
+  backdrop-filter: none !important;
   color: var(--text-primary) !important;
-  transition: all 0.2s ease-in-out !important;
 }
 
-/* Primary Button Text Color Fix */
+/* Sidebar Specifics */
+.app-sidebar {
+  border-right: 4px solid #000 !important;
+}
+.top-nav {
+  border-bottom: 4px solid #000 !important;
+}
+
+/* Buttons (Hard shadows, sharp corners) */
+.btn, .mini-quick-add-btn, .category-pill-btn, .profile-trigger, .date-arrow-btn {
+  background-color: #3b82f6 !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  color: #ffffff !important;
+  transition: transform 0.1s, box-shadow 0.1s !important;
+}
+
+/* Primary Button Colors */
 .btn-primary {
-  color: var(--primary) !important;
-  font-weight: 800 !important;
+  background-color: #f97316 !important; /* bright orange */
+  color: #000000 !important;
+  font-weight: 900 !important;
 }
 
 .btn-secondary {
-  color: var(--text-secondary) !important;
+  background-color: #e5e7eb !important;
+  color: #000000 !important;
 }
 
 .btn:hover, .mini-quick-add-btn:hover, .category-pill-btn:hover, .profile-trigger:hover {
-  transform: translateY(-2px);
+  transform: translate(-3px, -3px) !important;
   box-shadow: var(--shadow-lg) !important;
 }
 
 .btn:active, .btn.active, .mini-quick-add-btn:active, .category-pill-btn.active, .profile-trigger:active, .date-arrow-btn:active {
-  transform: translateY(0) !important;
-  box-shadow: var(--shadow-inset) !important;
-  color: var(--primary) !important;
+  transform: translate(3px, 3px) !important;
+  box-shadow: 0px 0px 0px #000000 !important;
 }
 
-/* Inputs & Forms (Inset 3D Shadow / Debossed) */
+/* Inputs & Forms */
 .form-control, input, select, textarea, #globalSearchInput, .inline-weight-input {
-  background-color: var(--bg-primary) !important;
-  box-shadow: var(--shadow-inset) !important;
-  border: none !important;
-  color: var(--text-primary) !important;
+  background-color: #ffffff !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  color: #000000 !important;
   padding: 12px !important;
-  border-radius: var(--radius-md) !important;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none !important;
-  box-shadow: var(--shadow-inset), 0 0 0 2px rgba(var(--primary-rgb), 0.2) !important;
+  box-shadow: var(--shadow-md) !important;
+  background-color: #fef08a !important; /* Highlight on focus */
 }
 
 /* Sidebar Navigation Links */
 .nav-link {
   background-color: transparent !important;
   box-shadow: none !important;
-  border: none !important;
-  margin-bottom: 6px;
+  border: 3px solid transparent !important;
+  border-radius: 0 !important;
+  margin-bottom: 8px;
+  color: var(--text-primary) !important;
+  font-weight: 700 !important;
 }
 
 .nav-link:hover {
-  background-color: var(--bg-primary) !important;
-  box-shadow: var(--shadow-md) !important;
-  color: var(--primary) !important;
+  background-color: #fbcfe8 !important; /* brutalist pink */
+  border: 3px solid #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+  transform: translate(-2px, -2px) !important;
 }
 
 .nav-link.active {
-  background-color: var(--bg-primary) !important;
-  box-shadow: var(--shadow-inset) !important;
-  color: var(--primary) !important;
-  font-weight: 700;
+  background-color: #fde047 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+  font-weight: 900 !important;
+  transform: translate(-2px, -2px) !important;
 }
 
 /* Fix login password container inner inputs */
 #loginPasswordStep input {
-  background-color: var(--bg-primary) !important;
-  box-shadow: var(--shadow-inset) !important;
-  color: var(--text-primary) !important;
+  background-color: #ffffff !important;
+  box-shadow: var(--shadow-sm) !important;
+  color: #000000 !important;
 }
 
-/* Progress Rings and Bars (Embed into neumorphic surface) */
+/* Progress Rings and Bars */
 .progress-ring__circle-bg {
-  stroke: var(--bg-secondary) !important;
-  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+  stroke: #e5e7eb !important;
+  filter: none !important;
 }
 
 .weight-target-progress, .nav-total-bar-bg {
-  background-color: var(--bg-primary) !important;
-  box-shadow: var(--shadow-inset) !important;
-  border: none !important;
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+  border-radius: 0 !important;
 }
 
 /* Special Badges */
 .food-card-kcal-badge {
-  background-color: var(--bg-primary) !important;
-  box-shadow: var(--shadow-inset) !important;
-  border: none !important;
+  background-color: #fde047 !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  color: #000000 !important;
 }
 
 /* Empty State Adjustments */
