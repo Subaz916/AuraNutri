@@ -477,7 +477,7 @@
       if (!el) {
         el = document.createElement('div');
         el.id = 'sbLoadingOverlay';
-        el.innerHTML = `<div class="sb-loader"><div class="sb-spinner"></div><p>Connecting to cloud…</p></div>`;
+        el.innerHTML = `<div class="sb-loader"><div class="block-bar"><span></span><span></span><span></span><span></span></div><p>Connecting to cloud…</p></div>`;
         document.body.appendChild(el);
       }
       el.style.display = 'flex';
